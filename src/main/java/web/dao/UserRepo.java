@@ -27,8 +27,8 @@ public class UserRepo implements UserDao {
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
-        } catch (HibernateQueryException e) {
-            e.getQueryString();
+        } catch (Exception e) {
+            e.fillInStackTrace();
             em.getTransaction().rollback();
             em.close();
         } finally {
@@ -49,8 +49,8 @@ public class UserRepo implements UserDao {
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
-        } catch (HibernateQueryException e) {
-            e.getQueryString();
+        } catch (Exception e) {
+            e.fillInStackTrace();
             em.getTransaction().rollback();
             em.close();
         } finally {
@@ -65,8 +65,8 @@ public class UserRepo implements UserDao {
             em.getTransaction().begin();
             em.remove(em.contains(user) ? user : em.merge(user));
             em.getTransaction().commit();
-        } catch (HibernateQueryException e) {
-            e.getQueryString();
+        } catch (Exception e) {
+            e.fillInStackTrace();
             em.getTransaction().rollback();
             em.close();
         } finally {
