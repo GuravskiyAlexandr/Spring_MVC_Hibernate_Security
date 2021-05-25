@@ -52,7 +52,6 @@ public class PersistenceJPAConfig {
         return transactionManager;
     }
 
-
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();

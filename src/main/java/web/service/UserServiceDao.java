@@ -12,4 +12,6 @@ public interface UserServiceDao {
     void userEdit(User user);
 
     void userDelete(User user);
+
+    User findUserById(Long id);
 }

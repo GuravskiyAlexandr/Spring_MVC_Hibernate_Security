@@ -1,76 +1,41 @@
 package web.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateQueryException;
+
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Transactional
 @Repository
 public class UserRepo implements UserDao {
-
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public void add(User user) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(user);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.fillInStackTrace();
-            em.getTransaction().rollback();
-            em.close();
-        } finally {
-            em.close();
-        }
+        em.persist(user);
     }
 
     @Override
     public List<User> getAllUsers() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.createQuery("SELECT u FROM User u").getResultList();
+        return em.createQuery("SELECT u FROM User u").getResultList();
     }
 
     @Override
     public void userEdit(User user) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(user);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.fillInStackTrace();
-            em.getTransaction().rollback();
-            em.close();
-        } finally {
-            em.close();
-        }
+        em.merge(user);
     }
 
     @Override
     public void userDelete(User user) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.remove(em.contains(user) ? user : em.merge(user));
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.fillInStackTrace();
-            em.getTransaction().rollback();
-            em.close();
-        } finally {
-            em.close();
-        }
+        em.remove(em.contains(user) ? user : em.merge(user));
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return em.find(User.class, id);
     }
 }

@@ -36,4 +36,9 @@ public class UserServiceImp  implements UserServiceDao{
     public void userDelete(User user) {
         userDao.userDelete(user);
     }
+
+    @Override
+    public User findUserById(Long id) {
+     return  userDao.findUserById(id);
+    }
 }
