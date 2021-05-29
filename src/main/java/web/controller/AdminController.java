@@ -38,15 +38,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/userId")
-    @ResponseBody
-    public User findUser(Long id) {
-        System.out.println(id);
-        User user = userServiceDao.findUserById(id);
-        System.out.println(user);
-        return user;
-    }
-
     @PostMapping(value = "/admin/edit")
     public String editUser(@ModelAttribute("user") User newUser, Model model) {
         User oldUser = userServiceDao.findUserById(newUser.getId());
