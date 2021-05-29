@@ -29,11 +29,7 @@ public class AdminController {
 
     @PostMapping("/admin/userAdd")
     public String addNewUser(@ModelAttribute("user") User user) {
-        System.out.println(user);
-        System.out.println("user");
         user.getRoles().forEach(role -> System.out.println(role.getRole()));
-
-        System.out.println("user.getPassword()");
         userServiceDao.add(user);
         return "redirect:/admin";
     }
@@ -53,15 +49,13 @@ public class AdminController {
 
     @GetMapping(value = "/edit/{id}")
     public String setForm(@PathVariable("id") Long id, Model model) {
-        User user = userServiceDao.findUserById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userServiceDao.findUserById(id));
         model.addAttribute("userRoles", Sets.newHashSet(new Role(2L,"ROLE_USER"), new Role(1L,"ROLE_ADMIN")));
         return "edit";
     }
 
     @GetMapping(value = "/admin/delete/{id}")
     public String delete(@ModelAttribute("id") User user) {
-        System.out.println("delete");
         userServiceDao.userDelete(user);
         return "redirect:/admin";
     }
