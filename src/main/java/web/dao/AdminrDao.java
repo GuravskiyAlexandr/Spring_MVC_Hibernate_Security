@@ -1,12 +1,10 @@
-package web.service;
+package web.dao;
 
 import web.model.User;
-
 import java.util.List;
 
-public interface UserServiceDao {
+public interface AdminrDao {
     void add(User user);
-
     List<User> getAllUsers();
 
     void userEdit(User user);
@@ -14,4 +12,6 @@ public interface UserServiceDao {
     void userDelete(User user);
 
     User findUserById(Long id);
+
+    User getUserByUsername(String username);
 }
