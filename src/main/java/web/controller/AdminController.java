@@ -29,7 +29,6 @@ public class AdminController {
 
     @PostMapping("/admin/userAdd")
     public String addNewUser(@ModelAttribute("user") User user) {
-        user.getRoles().forEach(role -> System.out.println(role.getRole()));
         userServiceDao.add(user);
         return "redirect:/admin";
     }
