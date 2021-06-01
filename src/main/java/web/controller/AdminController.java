@@ -46,16 +46,16 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/edit/{id}")
-    public String setForm(@PathVariable("id") Long id, Model model) {
+    @GetMapping(value = "/edit")
+    public String setForm(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userServiceDao.findUserById(id));
         model.addAttribute("userRoles", Sets.newHashSet(new Role(2L,"ROLE_USER"), new Role(1L,"ROLE_ADMIN")));
         return "edit";
     }
 
-    @GetMapping(value = "/admin/delete/{id}")
-    public String delete(@ModelAttribute("id") User user) {
-        userServiceDao.userDelete(user);
+    @GetMapping(value = "/admin/delete")
+    public String delete(@RequestParam("id") Long id) {
+        userServiceDao.userDelete(userServiceDao.findUserById(id));
         return "redirect:/admin";
     }
 

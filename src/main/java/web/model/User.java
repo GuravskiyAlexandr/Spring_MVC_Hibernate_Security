@@ -33,10 +33,9 @@ public class User implements UserDetails {
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
-
     public User() {
-
     }
+
     public User(Set<Role> roles){
         this.roles = roles;
     }
@@ -91,7 +90,6 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -152,4 +150,5 @@ public class User implements UserDetails {
                 ", roles=" + roles +
                 '}';
     }
+
 }

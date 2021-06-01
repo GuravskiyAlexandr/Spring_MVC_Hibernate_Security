@@ -3,6 +3,7 @@ package web.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -43,6 +44,5 @@ public class AdminRepo implements AdminrDao {
         return em.createQuery("select u from User u where u.firstName = :firstName", User.class)
                 .setParameter("firstName", firstName)
                 .getSingleResult();
-
     }
 }

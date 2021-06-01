@@ -1,4 +1,4 @@
-package web.config.security;
+package web.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").authenticated()// доступность всем
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/user")
                 .access("hasAnyRole('ROLE_USER')") // разрешаем входить на /user пользователям с ролью User
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and()
                 .formLogin() // Spring сам подставит свою логин форму
                 // указываем action с формы логина

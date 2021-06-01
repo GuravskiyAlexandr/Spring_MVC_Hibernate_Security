@@ -1,4 +1,4 @@
-package web.config.security;
+package web.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
